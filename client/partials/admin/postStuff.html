@@ -1,0 +1,85 @@
+<!-- post releated -->
+<template name="loadPost">
+  <div class="postCon">
+    <div class="actionBar">
+      <div class="title">Title</div><div class="cataSux">Catagory</div><div class="date">Date</div><div class="act">Actions</div>
+    </div>
+    {{#each post}}
+    <div class="postObj">
+      <div class="title" onclick="currentPost.set('{{_id}}'); adminLoc.set('editPost')">
+        {{title}}
+      </div>
+      <div class="cataSux">
+        {{cataSux}}
+      </div>
+      <div class="date">
+        {{date}}
+      </div>
+      <div class="act">
+        <span class="fa fa-trash" onclick="$('.deleteModal').show(); deleting.set('post::{{_id}}')"></span><span class="fa fa-pencil" onclick="currentPost.set('{{_id}}'); adminLoc.set('editPost')"></span>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</template>
+
+<!-- new post -->
+<template name="newPost">
+  <div class="postCon" style="border-top:5px solid #243136; padding-top:10px; padding-bottom:10px;">
+    <span class="label">Title</span>
+    <input class="postTitle" placeholder="title" id="title"/>
+    <span class="label">Content</span>
+    {{>markdownBar}}
+    <textarea class="content" placeholder="Content"></textarea>
+    <div class="label">Upload Image</div>
+    <input type="file" accept="image/*" class="upload" id="input">
+    <canvas id="canvas" style="display:none"></canvas>
+    <div class="label" style="padding-bottom:10px">Catagory</div>
+    <span class="opt1">News</span>
+    <span class="opt2">Boss Fight</span>
+    <button id="post">Post</button>
+    <input style="display:none" id="imageData"/>
+    <script>
+    $('.opt1').click(function(){
+      $('.opt2').removeClass('flair')
+      $('.opt1').addClass( "flair" )
+    })
+    $('.opt2').click(function(){
+      $('.opt1').removeClass('flair')
+      $('.opt2').addClass( "flair" )
+    })
+    </script>
+  </div>
+</template>
+<!-- edit post -->
+<template name="editPost">
+  <div class="postCon" style="border-top:5px solid #243136; padding-top:10px; padding-bottom:10px;">
+    {{#each post}}
+    <span class="label">Title</span>
+    <input class="postTitle" placeholder="title" id="editTitle"/>
+    <span class="label">Content</span>
+    {{>markdownBar}}
+    <textarea class="content" placeholder="Content" id="editContent"></textarea>
+    <div class="label">Upload Image</div>
+    <input type="file" accept="image/*" class="upload" id="input">
+    <canvas id="canvas2" style="display:none"></canvas>
+    <span class="opt1">News</span>
+    <span class="opt2">Boss Fight</span>
+    <button id="editPost">Edit</button>
+    <input style="display:none" id="imageData2"/>
+    <script>
+    $('#editTitle').val("{{title}}")
+    $('#editContent').val(`{{content}}`)
+
+    $('.opt1').click(function(){
+      $('.opt2').removeClass('flair')
+      $('.opt1').addClass( "flair" )
+    })
+    $('.opt2').click(function(){
+      $('.opt1').removeClass('flair')
+      $('.opt2').addClass( "flair" )
+    })
+    </script>
+    {{/each}}
+  </div>
+</template>

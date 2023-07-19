@@ -1,0 +1,156 @@
+<template name="admin">
+  {{>adminHeader}}
+  {{>modals}}
+  <div class="adminLeft">
+    <div class="fa fa-tachometer" title="dashboard"></div>
+    <div class="fa fa-pencil new" title="New Post"></div>
+    <div class="fa fa-trophy" title="Raids"></div>
+    <div class="fa fa-file" title="Check Applications"></div>
+    <div class="fa fa-twitch" title="Twitch"></div>
+    <div class="fa fa-cog" title="Site Settings"></div>
+  </div>
+  <div class="adminRight">
+    <div class="title">
+      {{#if equals adminLoc "dash"}}
+      Dashboard
+      {{/if}}
+      {{#if equals adminLoc "post"}}
+      Posts
+      <button class="createNew" onclick="adminLoc.set('newPost');">
+        New Post
+      </button>
+      {{/if}}
+      {{#if equals adminLoc "newPost"}}
+      Create Post
+      {{/if}}
+      {{#if equals adminLoc "editPost"}}
+      Edit Post
+      {{/if}}
+      {{#if equals adminLoc "apps"}}
+      Applications
+      <button class="createNew" onclick="adminLoc.set('appSet');">
+        Questions
+      </button>
+      {{/if}}
+      {{#if equals adminLoc "appSet"}}
+      Application Settings
+      {{/if}}
+      {{#if equals adminLoc "viewApp"}}
+      Viewing Application
+      {{/if}}
+      {{#if equals adminLoc "settings"}}
+      Settings
+      {{/if}}
+      {{#if equals adminLoc "raids"}}
+      Raids
+      <button class="createNew" onclick="adminLoc.set('newRaid');">
+        Add Raid
+      </button>
+      {{/if}}
+      {{#if equals adminLoc "newRaid"}}
+      Add Raid
+      {{/if}}
+      {{#if equals adminLoc "editRaid"}}
+      Edit Raid
+      {{/if}}
+      {{#if equals adminLoc "twitch"}}
+      Twitch Settings
+      {{/if}}
+    </div>
+    {{#if equals adminLoc "dash"}}
+    {{#each amount}}
+    <!-- the posts -->
+    <div class="dashShort" style="background:#f24232" onclick="adminLoc.set('post'); Meteor.adminAct.adminAct(1)">
+      <div id="center">
+        {{postCount}}
+      </div>
+      <div id="center" class="loc">Posts</div>
+      <div id="bottom" style="background:#d93c2e">
+        See More
+      </div>
+    </div>
+    <!-- the raids -->
+    <div class="dashShort" style="background:#ff9800" onclick="adminLoc.set('raids'); Meteor.adminAct.adminAct(4)">
+      <div id="center">
+        {{raidCount}}
+      </div>
+      <div id="center" class="loc">Raids</div>
+      <div id="bottom" style="background:#e98900">
+        See More
+      </div>
+    </div>
+    <!-- the applications -->
+    <div class="dashShort" style="background:#00a857" onclick="adminLoc.set('apps'); Meteor.adminAct.adminAct(2)">
+      <div id="center">
+        {{appCount}}
+      </div>
+      <div id="center" class="loc">Applications</div>
+      <div id="bottom" style="background:#00974e">
+        See More
+      </div>
+    </div>
+    <div class="dashShort" style="background:#4b367c" onclick="adminLoc.set('twitch'); Meteor.adminAct.adminAct(5)">
+      <div id="center" class="loc fa fa-twitch" style="padding-top:23px!important;"></div>
+      <div id="center" class="loc">Twitch</div>
+      <div id="bottom" style="background:#3c2c63">
+        See More
+      </div>
+    </div>
+    <div class="dashShort" style="background:#0073b9" onclick="adminLoc.set('settings'); Meteor.adminAct.adminAct(3)">
+      <div id="center" class="loc fa fa-cog" style="padding-top:23px!important;"></div>
+      <div id="center" class="loc">Settings</div>
+      <div id="bottom" style="background:#0067a6">
+        See More
+      </div>
+    </div>
+    {{/each}}
+    {{/if}}
+    <!-- the pages -->
+    {{#if equals adminLoc "post"}}
+    {{>loadPost}}
+    {{/if}}
+    {{#if equals adminLoc "newPost"}}
+    {{>newPost}}
+    {{/if}}
+    {{#if equals adminLoc "editPost"}}
+    {{>editPost}}
+    {{/if}}
+    {{#if equals adminLoc "settings"}}
+    {{>settings}}
+    {{/if}}
+    {{#if equals adminLoc "raids"}}
+    {{>loadRaid}}
+    {{/if}}
+    {{#if equals adminLoc "newRaid"}}
+    {{>newRaid}}
+    {{/if}}
+    {{#if equals adminLoc "apps"}}
+    {{>loadApps}}
+    {{/if}}
+    {{#if equals adminLoc "viewApp"}}
+    {{>viewApp}}
+    {{/if}}
+    {{#if equals adminLoc "appSet"}}
+    {{>appSet}}
+    {{/if}}
+    {{#if equals adminLoc "editRaid"}}
+    {{>editRaid}}
+    {{/if}}
+    {{#if equals adminLoc "twitch"}}
+    {{>twitch}}
+    {{/if}}
+  </div>
+</template>
+
+<!-- seperated so that I can use it on the actual site if an admin is logged in -->
+<template name="adminHeader">
+  <div class="adminHeader">
+    <div class="page">
+      {{#if equals currentPage "admin"}}
+      Home
+      {{else}}
+      Admin
+      {{/if}}
+    </div>
+  </div>
+</template>

@@ -1,0 +1,50 @@
+<template name="feed">
+  <div class="feed">
+    <div class="content">
+      <!-- blaze templates, equals and currentPage defined in js/helpers.js-->
+      {{#if equals currentPage "feed"}}
+      {{#if bossExists}}
+      <div class="homeGallery">
+        <img src="{{caroImg}}"/>
+        <div class="thumbs">
+          {{#each image}}
+          <div class="cover" onclick="currentImage.set('{{imgPath}}');"></div>
+          <img src="{{imgPath}}"/>
+          <script>
+          if(currentImage.get() == ''){
+            currentImage.set('{{imgPath}}')
+          }</script>
+          {{/each}}
+        </div>
+      </div>
+      {{/if}}
+      {{>newsHeader}}
+      {{> news}}
+      {{/if}}
+      {{#if equals currentPage "article"}}
+      {{>newsHeader}}
+      {{>article}}
+      {{/if}}
+      {{#if equals currentPage "about"}}
+      {{>about}}
+      {{/if}}
+      {{#if equals currentPage "streams"}}
+      {{>streams}}
+      {{/if}}
+      {{#if equals currentPage "apply"}}
+      {{>applyPage}}
+      {{/if}}
+      {{#if equals currentPage "appSent"}}
+      {{>appSuccess}}
+      {{/if}}
+    </div>
+    <div class="widgets">
+      {{>recruiting}}
+      {{>raidStatus}}
+    </div>
+  </div>
+  {{>footer}}
+  <div class="photoCredit">
+    Photo credit: <a href="https://www.flickr.com/photos/narcissism/3218689577/">Existential Crisis Factory</a> via <a href="https://visualhunt.com/re/0b6ace">VisualHunt.com</a> / <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/"> CC BY-NC-SA</a>
+  </div>
+</template>

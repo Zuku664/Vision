@@ -1,0 +1,44 @@
+<template name="twitch">
+  <div class="postCon" style="border-top:5px solid #243136; padding-top:10px; padding-bottom:10px">
+    <span class="label">API key</span>
+    <input class="postTitle" placeholder="API key" id="APIkey"/>
+    <span class="label">Add Streaming Username</span>
+    <div id="twitchCon">
+
+    </div>
+    <button onclick="Meteor.twitch.addUsr(count)" style="margin-top:0; display:inline">Add Username</button>
+    <button onclick="Meteor.twitch.remUsr(count)" class="remBoss" style="margin-top:0; float:right">Remove Username</button>
+    <button id="editTwitch" onclick="Meteor.twitch.postTwitch(count)">Update</button>
+  </div>
+  {{#each daStuff}}
+  <script>
+  var apiKey = "{{apiKey}}"
+  var twitchUsers = "{{names}}"
+  twitchUsers = twitchUsers.split(',')
+  var count = Number("{{counts}}")
+  count += 1
+  $('#APIkey').val(apiKey)
+
+
+  for(var i = 0; i < count; i++){
+    console.log(count)
+    var twitchCon = '"twitchCon'+i+'"'
+    let thisAbn = '"editTu'+i+'"'
+    var insertAbn = "#editTu"+i
+
+    $('#twitchCon').append('<div class="bosses" id='+twitchCon+'><input class="twitchName" placeholder="Username" id='+thisAbn+'/> </div>')
+    $(insertAbn).val(twitchUsers[i])
+  }
+  </script>
+  {{else}}
+  <script>
+  var count = 1
+
+  for(var i = 0; i < count; i++){
+    var twitchCon = '"twitchCon'+i+'"'
+    let thisAbn = '"editTu'+i+'"'
+    $('#twitchCon').append('<div class="bosses" id='+twitchCon+'><input class="twitchName" placeholder="Username" id='+thisAbn+'/> </div>')
+  }
+  </script>
+  {{/each}}
+</template>

@@ -1,0 +1,42 @@
+<template name="applyPage">
+  <div class="apply">
+    {{#if equals currentPage "apply"}}
+    <script>
+    var shouldShow = true;
+    </script>
+    {{#each question}}
+    <div class="quesCon">
+    <script>
+    var ques = "{{ques}}"
+    ques = ques.split('::,')
+      
+    for(var i = 0; i < ques.length; i++){
+      ques[i] = ques[i].replace("::", "")
+      $('.quesCon').append('<div class="quesTitle">'+ques[i]+'</div>')
+      $('.quesCon').append('<input class="quesResp" placeholder="Response" id="qu'+i+'">')
+    }
+    if(ques.length == 1 && ques[0] == ""){
+      $('#qu0').hide()
+      $('#buttenrino').hide()
+      $('.quesCon').append('<div class="quesTitle">Looks like we are not accepting applications right now! Check back later!</div>')
+    }
+    </script>
+  </div>
+  {{/each}}
+  <button id="buttenrino">Apply</button>
+  {{/if}}
+</div>
+</template>
+<template name="appSuccess">
+  <div class="appSuccCon">
+    <div class="hero">
+      You're application was successful!
+    </div>
+    <div class="subHero">
+      You should be redirected to the home page in a few seconds!
+    </div>
+  </div>
+  <script>
+  setTimeout(function(){ currentPage.set('feed'); Meteor.pushState.pushState('feed'); Meteor.setActive.setActive(0) }, 4000);
+  </script>
+</template>

@@ -1,0 +1,125 @@
+<!-- applications -->
+<template name="loadApps">
+  <div class="postCon">
+    <div class="actionBar">
+      <div class="title">Username</div><div class="cataSux">
+        <select name="Catagory" id="appSorter" style="margin:0">
+          <option value="All">All</option>
+          <option value="Unviewed">Unviewed</option>
+          <option value="Viewed">Viewed</option>
+          <option value="Approved">Approved</option>
+          <option value="Denied">Denied</option>
+        </select>
+        <script>
+        $('#appSorter').change(function(){
+          appSort.set($(this).val())
+        });
+        </script>
+      </div><div class="date">Date</div><div class="act">Actions</div>
+    </div>
+    {{#each app}}
+    <div class="postObj">
+      <div class="title" onclick="adminLoc.set('viewApp'); currentApp.set('{{_id}}')">
+        {{username}}
+      </div>
+      <div class="cataSux">
+        {{cataSux}}
+      </div>
+      <div class="date">
+        {{date}}
+      </div>
+      <div class="act">
+        <span class="fa fa-trash" onclick="$('.deleteModal').show(); deleting.set('app::{{_id}}')"></span><span class="fa fa-eye" onclick="adminLoc.set('viewApp'); currentApp.set('{{_id}}')"></span>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</template>
+
+<template name="viewApp">
+  <div class="postCon" style="border-top:5px solid #243136; padding-top:10px; padding-bottom:10px;">
+    {{#each viewApp}}
+    <div class="appPrev">
+
+    </div>
+
+    <script>
+    $(".appQues").each(function() {
+      var text = $(this).text();
+      text = text.replace("::", "");
+      $(this).text(text);
+    });
+    </script>
+    <hidden id="hiddenResp" style="display:none">{{resps}}</hidden>
+    <hidden id="hiddenQues" style="display:none">{{questions}}</hidden>
+    <script>
+    var amt = {{amt}}
+
+    var ques = $('#hiddenQues').html().split('::,')
+
+    var resp = $('#hiddenResp').html().split('::,')
+
+    for(var i = 0; i < amt -1; i++){
+      ques[i] = ques[i].replace("::", "")
+      resp[i] = resp[i].replace("::", "")
+      $('.appPrev').append('<div class="label">'+ques[i]+'</div>')
+      $('.appPrev').append('<div class="quesName">'+resp[i]+'</div>')
+    }
+    if('{{cataSux}}' == 'Unviewed'){
+      Meteor.call('updateApp', currentApp.get(), 'Viewed')
+    }
+    $('#appCata').val('{{cataSux}}');
+    </script>
+    {{/each}}
+    <div class="label">
+      Catagory
+    </div>
+    <select id="appCata">
+      <option value="Viewed">Viewed</option>
+      <option value="Unviewed">Unviewed</option>
+      <option value="Approved">Approved</option>
+      <option value="Denied">Denied</option>
+    </select>
+    <button id="changeAppCata">Update</button>
+  </div>
+</template>
+
+<template name="appSet">
+  <div class="postCon" style="border-top:5px solid #243136; padding-top:10px; padding-bottom:10px;">
+    <span class="label">Add Questions</span>
+    {{#each question}}
+    <div id="quessCon">
+      <div class="questions" id="quesCon0">
+      </div>
+    </div>
+    <script>
+    var ques = "{{ques}}"
+    ques = ques.split('::,')
+    console.log(ques)
+
+    var amt = Number('{{quesCount}}')
+    console.log(amt)
+    for(var i = 0; i < amt; i++){
+      ques[i] = ques[i].replace("::", "")
+      $('#quesCon0').append('<input class="quesName" id="qu'+i+'">')
+      $("#qu"+i).val(ques[i]);
+      addQU += 1
+      console.log(addQU)
+    }
+
+    if(amt == 0){
+      $('#quesCon0').append('<input class="quesName" placeholder="Question ( This should be username )" id="qu'+0+'">')
+    }
+    </script>
+    {{else}}
+    <div id="quessCon">
+      <div class="questions" id="quesCon0">
+        <input class="quesName" placeholder="Question" id="qu0"/>
+      </div>
+    </div>
+    {{/each}}
+    <button onclick="Meteor.addQues.addQues()" style="margin-top:0; display:inline">Add New Question</button>
+    <button onclick="Meteor.addQues.remQues()" class="remBoss" style="margin-top:0; float:right">Remove Question</button>
+    <button id="addApp" onclick="Meteor.addQues.postQues()">Change Application</button>
+  </div>
+</template>

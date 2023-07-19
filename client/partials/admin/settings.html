@@ -1,0 +1,128 @@
+<template name="settings">
+  <div class="postCon" style="border-top:5px solid #243136; padding-top:10px; padding-bottom:10px">
+    <span class="label" id="title">Site Title</span>
+    <input class="postTitle" placeholder="{{st.title}}"/>
+    <span class="label">About text</span>
+    {{>markdownBar}}
+    <textarea class="content" placeholder="{{at.about}}"></textarea>
+    <script>
+      var about = $('.content').attr('placeholder')
+      $('.postTitle').val("{{st.title}}")
+      $('.content').val(about)
+    </script>
+    <!-- tabard upload -->
+    <div class="label">Upload Tabard ( The img tag size is 145x145 and object-fit )</div>
+    <input type="file" accept="image/*" class="upload" id="tabardIn">
+    <canvas id="tabardCan" style="display:none"></canvas>
+    <input style="display:none" id="tabardUp"/>
+    <!-- background upload -->
+    <div class="label">Upload Background ( Recommended: 1920x1080 ~400KB )</div>
+    <input type="file" accept="image/*" class="upload" id="backgroundIn">
+    <canvas id="backgroundCan" style="display:none"></canvas>
+    <input style="display:none" id="backgroundUp"/>
+    <!-- ICO upload -->
+    <div class="label">Upload Favicon ( .ico format )</div>
+    <input type="file" accept="image/*" class="upload" id="faviIn">
+    <canvas id="faviCan" style="display:none"></canvas>
+    <input style="display:none" id="faviUp"/>
+    <!-- recruting -->
+    <span class="label">Recruiting</span>
+    <div class="type">Death Knight</div>
+    <table>
+      <tr class="spec">
+        <td><input type="checkbox" id="dnB" checked="{{rc.dnB}}"> Blood</td>
+        <td><input type="checkbox" id="dnU" checked="{{rc.dnU}}"> Unholy</td>
+        <td><input type="checkbox" id="dnF" checked="{{rc.dnF}}"> Frost</td>
+      </tr>
+    </table>
+    <div class="type">Demon Hunter</div>
+    <table>
+      <tr class="spec">
+        <td><input type="checkbox" id="dhH" checked="{{rc.dhH}}"> Havoc</td>
+        <td><input type="checkbox" id="dhV" checked="{{rc.dhV}}"> Vengeance</td>
+      </tr>
+    </table>
+    <div class="type">Druid</div>
+    <table>
+      <tr class="spec">
+        <td><input type="checkbox" id="drB" checked="{{rc.drB}}"> Balance</td>
+        <td><input type="checkbox" id="drF" checked="{{rc.drF}}"> Feral</td>
+        <td><input type="checkbox" id="drR" checked="{{rc.drR}}"> Restoration</td>
+        <td><input type="checkbox" id="drG" checked="{{rc.drG}}"> Guardian</td>
+      </tr>
+    </table>
+    <div class="type">Hunter</div>
+    <table>
+      <tr class="spec">
+        <td><input type="checkbox" id="huM" checked="{{rc.huM}}"> Marksman</td>
+        <td><input type="checkbox" id="huS" checked="{{rc.huS}}"> Survival</td>
+        <td><input type="checkbox" id="huB" checked="{{rc.huB}}"> Beast</td>
+      </tr>
+    </table>
+    <div class="type">Mage</div>
+    <table>
+      <tr class="spec">
+        <td><input type="checkbox" id="maF" checked="{{rc.maF}}"> Fire</td>
+        <td><input type="checkbox" id="maFr" checked="{{rc.maFr}}"> Frost</td>
+        <td><input type="checkbox" id="maA" checked="{{rc.maA}}"> Arcane</td>
+      </tr>
+    </table>
+    <div class="type">Monk</div>
+    <table>
+      <tr class="spec">
+        <td><input type="checkbox" id="moM" checked="{{rc.moM}}"> Mist</td>
+        <td><input type="checkbox" id="moW" checked="{{rc.moW}}"> Wind</td>
+        <td><input type="checkbox" id="moB" checked="{{rc.moB}}"> Brew</td>
+      </tr>
+    </table>
+    <div class="type">Paladin</div>
+    <table>
+      <tr class="spec">
+        <td><input type="checkbox" id="paH" checked="{{rc.paH}}"> Holy</td>
+        <td><input type="checkbox" id="paR" checked="{{rc.paR}}"> Retribution</td>
+        <td><input type="checkbox" id="paP" checked="{{rc.paP}}"> Protection</td>
+      </tr>
+    </table>
+    <div class="type">Priest</div>
+    <table>
+      <tr class="spec">
+        <td><input type="checkbox" id="prS" checked="{{rc.prS}}"> Shadow</td>
+        <td><input type="checkbox" id="prD" checked="{{rc.prD}}"> Discipline</td>
+        <td><input type="checkbox" id="prH" checked="{{rc.prH}}"> Holy</td>
+      </tr>
+    </table>
+    <div class="type">Rogue</div>
+    <table>
+      <tr class="spec">
+        <td><input type="checkbox" id="roA" checked="{{rc.roA}}"> Assassination</td>
+        <td><input type="checkbox" id="roS" checked="{{rc.roS}}"> Subtlety</td>
+        <td><input type="checkbox" id="roC" checked="{{rc.roC}}"> Outlaw</td>
+      </tr>
+    </table>
+    <div class="type">Shaman</div>
+    <table>
+      <tr class="spec">
+        <td><input type="checkbox" id="shE" checked="{{rc.shE}}"> Elemental</td>
+        <td><input type="checkbox" id="shR" checked="{{rc.shR}}"> Restoration</td>
+        <td><input type="checkbox" id="shEn" checked="{{rc.shEn}}"> Enhancement</td>
+      </tr>
+    </table>
+    <div class="type">Warlock</div>
+    <table>
+      <tr class="spec">
+        <td><input type="checkbox" id="waA" checked="{{rc.waA}}"> Affliction</td>
+        <td><input type="checkbox" id="waD" checked="{{rc.waD}}"> Demonology</td>
+        <td><input type="checkbox" id="waDe" checked="{{rc.waDe}}"> Destruction</td>
+      </tr>
+    </table>
+    <div class="type">Warrior</div>
+    <table>
+      <tr class="spec">
+        <td><input type="checkbox" id="warA" checked="{{rc.warA}}"> Arms</td>
+        <td><input type="checkbox" id="warF" checked="{{rc.warF}}"> Fury</td>
+        <td><input type="checkbox" id="warP" checked="{{rc.warP}}"> Protection</td>
+      </tr>
+    </table>
+  <button id="saveSettings">Save</button>
+</div>
+</template>

@@ -1,0 +1,24 @@
+<template name="article">
+  <div class="article">
+    {{#if equals currentPage "article"}}
+    {{#each posts}}
+    <img src="{{imgPath}}"/>
+    <div>
+      {{markdown content}}
+    </div>
+    {{/each}}
+    {{/if}}
+    {{#if equals currentPage "about"}}
+    <span class="title">
+      About Us
+    </span>
+    <div>
+      {{#if about.about}}
+        {{markdown about.about}}
+        {{else}}
+        OpenGuild created by FinchMFG is open source software. Make sure to change your about inside settings!
+      {{/if}}
+    </div>
+    {{/if}}
+  </div>
+</template>

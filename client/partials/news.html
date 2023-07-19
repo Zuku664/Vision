@@ -1,0 +1,45 @@
+<template name="news">
+  <!-- since news is used in two places, creating a template is DRY-->
+  <div class="news">
+    {{#each posts}}
+    <div class="articleFeed" onclick="currentPage.set('article'); currentPost.set('{{_id}}'); Meteor.pushState.pushState(currentPost.get())">
+      <img src="{{imgPath}}" />
+      <div class="articleDim"></div>
+      <div class="title">
+        {{title}}
+      </div>
+      <div class="date">
+        {{date}}
+      </div>
+    </div>
+    {{/each}}
+    {{#if equals currentPage "feed"}}
+    <script>
+    var fired = false;
+    var canFire = true;
+    jQuery(function($) {
+      $(document).on('scroll', function() {
+        if($(this).scrollTop() + $(this).innerHeight() >= document.body.scrollHeight + 910) {
+          //if it hits 20 above bottom
+          //it fired
+          fired = true;
+          //if you can fire and can fire are true
+          if(fired == true && canFire == true){
+            //add 6 to loaded posts
+            postLimitServer.set(postLimitServer.get() + 4);
+            //disable can fire
+            canFire = false;
+            //disable this event
+            $( this ).off( event );
+          }
+        }else{
+          //when this fires again with canfire off, canfire is on for next loading
+          canFire = true;
+          //this prevents more than 6 posts to be loaded per firing
+        }
+      })
+    });
+    </script>
+    {{/if}}
+  </div>
+</template>

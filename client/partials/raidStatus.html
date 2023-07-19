@@ -1,0 +1,123 @@
+<template name="raidStatus">
+  {{#each raid}}
+  <div class="raidStatus" id="{{_id}}rs">
+    <div class="raidStatusCon">
+      <div class="title">
+        {{title}}
+      </div>
+      <div class="percentCon">
+        <div class="percentMask" id="{{_id}}normMask"></div>
+        <div class="percentText" id="{{_id}}normPer">
+          NORMAL 90%
+        </div>
+      </div>
+      <div class="percentCon">
+        <div class="percentMask" id="{{_id}}heroMask"></div>
+        <div class="percentText" id="{{_id}}heroPer">
+          heroic 90%
+        </div>
+      </div>
+      <div class="percentCon">
+        <div class="percentMask" id="{{_id}}mythMask"></div>
+        <div class="percentText" id="{{_id}}mythPer">
+          mythic 90%
+        </div>
+      </div>
+      <div class="raidToolTip" id="{{_id}}tt" style="color:white;">
+        <table>
+          <tbody id="{{_id}}">
+            <tr>
+              <td class="title">{{title}}</td>
+              <td class="size">NORMAL</td>
+              <td class="size">HEROIC</td>
+              <td class="size">MYTHIC</td>
+            </tr>
+            <!-- dynamically add parts here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <hidden id="{{_id}}hiddenBNClient" style="display:none">{{bossName}}</hidden>
+    <script>
+    //this really should be devoted to one function globally, but since it's small and I'm pressed for time
+    //its going to live here instead.
+    $('#{{_id}}rs').bind('mousemove', function(e){
+      $('.raidToolTip').css({
+        left:  e.clientX - $( '#{{_id}}tt' ).width() - 10,
+        top:   e.clientY
+      });
+    });
+    var bossName = $('#{{_id}}hiddenBNClient').html().split('::,')
+    var bossStatN = "{{bossStatN}}"
+    bossStatN = bossStatN.split(',')
+    var bossStatH = "{{bossStatH}}"
+    bossStatH = bossStatH.split(',')
+    var bossStatM = '{{bossStatM}}'
+    bossStatM = bossStatM.split(',')
+    var amt = Number('{{length}}')
+    amt += 1
+
+    var normPer = 0
+    var heroPer = 0
+    var mythPer = 0
+
+    for(var i = 0; i < amt; i++){
+      $( "#{{_id}}" ).append('<tr>')
+      try{
+        bossName[i] = bossName[i].replace("::", "")
+      }catch(e){}
+      $( "#{{_id}}" ).append('<td class="bn">'+bossName[i]+'</td>')
+
+      if(bossStatN[i].includes('DEAD')){
+        $( "#{{_id}}" ).append('<td class="bS dead">'+bossStatN[i]+'</td>')
+        normPer += 1
+      }else{
+        $( "#{{_id}}" ).append('<td class="bS">'+bossStatN[i]+'</td>')
+      }
+
+      if(bossStatH[i].includes('DEAD')){
+        $( "#{{_id}}" ).append('<td class="bS dead">'+bossStatH[i]+'</td>')
+        heroPer += 1
+      }else{
+        $( "#{{_id}}" ).append('<td class="bS">'+bossStatH[i]+'</td>')
+      }
+
+      if(bossStatM[i].includes('DEAD')){
+        $( "#{{_id}}" ).append('<td class="bS dead">'+bossStatM[i]+'</td>')
+        mythPer += 1
+      }else{
+        $( "#{{_id}}" ).append('<td class="bS">'+bossStatM[i]+'</td>')
+      }
+      $( "#{{_id}}" ).append('</tr>')
+    }
+
+    $('#{{_id}}normPer').html("normal " + Math.round(normPer / amt * 100) + "%")
+    $('#{{_id}}normMask').attr("style", "width:" + Math.round(normPer / amt * 100) + "%")
+
+    if(Math.round(heroPer / amt * 100) >0){
+      $('#{{_id}}heroPer').html("heroic " + Math.round(heroPer / amt * 100) + "%")
+      $('#{{_id}}heroMask').attr("style", "width:" + Math.round(heroPer / amt * 100) + "%")
+    }else{
+      $('#{{_id}}heroPer').parent().hide()
+    }
+
+    if(Math.round(mythPer / amt * 100) >0){
+      $('#{{_id}}mythPer').html("mythic " + Math.round(mythPer / amt * 100) + "%")
+      $('#{{_id}}mythMask').attr("style", "width:" + Math.round(mythPer / amt * 100) + "%")
+    }else{
+      $('#{{_id}}mythMask').parent().hide()
+    }
+    if(Math.round(normPer / amt * 100) == 100){
+      $('#{{_id}}normMask').attr("style", "background: green; width:" + Math.round(normPer / amt * 100) + "%")
+    }
+    if(Math.round(heroPer / amt * 100) == 100){
+      $('#{{_id}}heroMask').attr("style", "background: green; width:" + Math.round(heroPer / amt * 100) + "%")
+    }
+    if(Math.round(mythPer / amt * 100) == 100){
+      $('#{{_id}}mythMask').attr("style", "background: green; width:" + Math.round(mythPer / amt * 100) + "%")
+    }
+
+    </script>
+  </div>
+  {{/each}}
+</template>

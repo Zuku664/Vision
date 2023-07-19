@@ -1,0 +1,235 @@
+<template name="recruiting">
+  <div class="recruiting">
+    <div class="title">
+      Now Recruiting
+    </div>
+    {{#if rDn}}
+    <div class="recruitList">
+      <img class="class" src="/deathknight/deathknight.png" title="Death Knight"/>
+      <div class="name" title="Death Knight">
+        D. Knight
+      </div>
+      <div class="spec">
+        {{#if rc.dnB}}
+        <img src="/deathknight/blood.png" title="Blood Death Knight"/>
+        {{/if}}
+        {{#if rc.dnU}}
+        <img src="/deathknight/unholy.png" title="Unholy Death Knight"/>
+        {{/if}}
+        {{#if rc.dnF}}
+        <img src="/deathknight/frost.png" title="Frost Death Knight"/>
+        {{/if}}
+      </div>
+    </div>
+    {{/if}}
+    {{#if rDh}}
+    <div class="recruitList">
+      <img class="class" src="/demonhunter/demonhunter.png" title="Demon Hunter"/>
+      <div class="name" style="color:#A330C9" title="Demon Hunter">
+        Demon Hunter
+      </div>
+      <div class="spec">
+        {{#if rc.dhH}}
+        <img src="/demonhunter/havoc.jpg" title="Havoc Demon Hunter"/>
+        {{/if}}
+        {{#if rc.dhV}}
+        <img src="/demonhunter/vengeance.jpg" title="Vengeance Demon Hunter"/>
+        {{/if}}
+      </div>
+    </div>
+    {{/if}}
+    {{#if rDr}}
+    <div class="recruitList">
+      <img class="class" src="/druid/druid.png" title="Druid"/>
+      <div class="name" style="color:#FF7D0A" title="Druid">
+        Druid
+      </div>
+      <div class="spec">
+        {{#if rc.drB}}
+        <img src="/druid/balance.png" title="Balance Druid"/>
+        {{/if}}
+        {{#if rc.drF}}
+        <img src="/druid/feral.png" title="Feral Druid"/>
+        {{/if}}
+        {{#if rc.drR}}
+        <img src="/druid/restoration.png" title="Restoration Druid"/>
+        {{/if}}
+        {{#if rc.drG}}
+        <img src="/druid/guardian.png" title="Guardian Druid"/>
+        {{/if}}
+      </div>
+    </div>
+    {{/if}}
+    {{#if rhu}}
+    <div class="recruitList">
+      <img class="class" src="/hunter/hunter.png" title="Hunter"/>
+      <div class="name" style="color:#30c96f" title="Hunter">
+        Hunter
+      </div>
+      <div class="spec">
+        {{#if rc.huM}}
+        <img src="/hunter/marksman.png" title="Marksman Hunter"/>
+        {{/if}}
+        {{#if rc.huS}}
+        <img src="/hunter/survival.png" title="Survival Hunter"/>
+        {{/if}}
+        {{#if rc.huB}}
+        <img src="/hunter/beastmastery.png" title="Beast Mastery Hunter"/>
+        {{/if}}
+      </div>
+    </div>
+    {{/if}}
+    {{#if rMa}}
+    <div class="recruitList">
+      <img class="class" src="/mage/mage.png" title="Mage"/>
+      <div class="name" style="color:#69CCF0" title="Mage">
+        Mage
+      </div>
+      <div class="spec">
+        {{#if rc.maF}}
+        <img src="/mage/fire.png" title="Fire Mage"/>
+        {{/if}}
+        {{#if rc.maFr}}
+        <img src="/mage/frost.png" title="Frost Mage"/>
+        {{/if}}
+        {{#if rc.maA}}
+        <img src="/mage/arcane.png" title="Arcane Mage"/>
+        {{/if}}
+      </div>
+    </div>
+    {{/if}}
+    {{#if rMo}}
+    <div class="recruitList">
+      <img class="class" src="/monk/monk.png" title="Monk"/>
+      <div class="name" style="color:#2D9B78" title="Monk">
+        Monk
+      </div>
+      <div class="spec">
+        {{#if rc.moM}}
+        <img src="/monk/mistweaver.png" title="Mist Weaver Monk"/>
+        {{/if}}
+        {{#if rc.moW}}
+        <img src="/monk/windwalker.png" title="Wind Walker Monk"/>
+        {{/if}}
+        {{#if rc.moB}}
+        <img src="/monk/brewmaster.png" title="Brew Master Monk"/>
+        {{/if}}
+      </div>
+    </div>
+    {{/if}}
+    {{#if rPa}}
+    <div class="recruitList">
+      <img class="class" src="/paladin/paladin.png" title="Paladin"/>
+      <div class="name" style="color:#F58CBA" title="Paladin">
+        Paladin
+      </div>
+      <div class="spec">
+        {{#if rc.paH}}
+        <img src="/paladin/holy.png" title="Holy Paladin"/>
+        {{/if}}
+        {{#if rc.paR}}
+        <img src="/paladin/retribution.png" title="Retribution Paladin"/>
+        {{/if}}
+        {{#if rc.paP}}
+        <img src="/paladin/protection.png" title="Protection Paladin"/>
+        {{/if}}
+      </div>
+    </div>
+    {{/if}}
+    {{#if rPr}}
+    <div class="recruitList">
+      <img class="class" src="/priest/priest.png" title="Priest"/>
+      <div class="name" style="color:white" title="Priest">
+        Priest
+      </div>
+      <div class="spec">
+        {{#if rc.prS}}
+        <img src="/priest/shadow.png" title="Shadow Priest"/>
+        {{/if}}
+        {{#if rc.prD}}
+        <img src="/priest/discipline.png" title="Discipline Priest"/>
+        {{/if}}
+        {{#if rc.prH}}
+        <img src="/priest/holy.png" title="Holy Priest"/>
+        {{/if}}
+      </div>
+    </div>
+    {{/if}}
+    {{#if rRo}}
+    <div class="recruitList">
+      <img class="class" src="/rogue/rogue.png" title="Rogue"/>
+      <div class="name" style="color:#FFF569" title="Rogue">
+        Rogue
+      </div>
+      <div class="spec">
+        {{#if rc.roA}}
+        <img src="/rogue/assassination.png" title="Assassination Rogue"/>
+        {{/if}}
+        {{#if rc.roS}}
+        <img src="/rogue/subtlety.png" title="Subtlety Rogue"/>
+        {{/if}}
+        {{#if rc.roC}}
+        <img src="/rogue/combat.png" title="Rogue Outlaw"/>
+        {{/if}}
+      </div>
+    </div>
+    {{/if}}
+    {{#if rSh}}
+    <div class="recruitList">
+      <img class="class" src="/shaman/shaman.png" title="Shaman"/>
+      <div class="name" style="color:#0070DE" title="Shaman">
+        Shaman
+      </div>
+      <div class="spec">
+        {{#if rc.shE}}
+        <img src="/shaman/elemental.png" title="Elemental Shaman"/>
+        {{/if}}
+        {{#if rc.shR}}
+        <img src="/shaman/restoration.png" title="Restoration Shaman"/>
+        {{/if}}
+        {{#if rc.shEn}}
+        <img src="/shaman/enhancement.png" title="Enhancement Shaman"/>
+        {{/if}}
+      </div>
+    </div>
+    {{/if}}
+    {{#if rWa}}
+    <div class="recruitList">
+      <img class="class" src="/warlock/warlock.png" title="Warlock"/>
+      <div class="name" style="color:#9482C9" title="Warlock">
+        Warlock
+      </div>
+      <div class="spec">
+        {{#if rc.waA}}
+        <img src="/warlock/affliction.png" title="Affliction Warlock"/>
+        {{/if}}
+        {{#if rc.waD}}
+        <img src="/warlock/demonology.png" title="Demonology Warlock"/>
+        {{/if}}
+        {{#if rc.waDe}}
+        <img src="/warlock/destruction.png" title="Destruction Warlock"/>
+        {{/if}}
+      </div>
+    </div>
+    {{/if}}
+    {{#if rWar}}
+    <div class="recruitList">
+      <img class="class" src="/warrior/warrior.png" title="Warrior"/>
+      <div class="name" style="color:#c98d30" title="Warrior">
+        Warrior
+      </div>
+      <div class="spec">
+        {{#if rc.warA}}
+        <img src="/warrior/arms.png" title="Arms Warrior"/>
+        {{/if}}
+        {{#if rc.warF}}
+        <img src="/warrior/fury.png" title="Fury Warrior"/>
+        {{/if}}
+        {{#if rc.warP}}
+        <img src="/warrior/protection.png" title="Protection Warrior"/>
+        {{/if}}
+      </div>
+    </div>
+    {{/if}}
+  </div>
+</template>

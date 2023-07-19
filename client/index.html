@@ -1,0 +1,29 @@
+<head>
+  <link rel="icon" type="image/x-icon" href="/files/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat|Raleway|Varela|Baloo|Open+Sans|Roboto" rel="stylesheet">
+  <!-- Title and Meta generated server side -->
+</head>
+<template name="index">
+  {{#if currentUser}}
+  {{>adminHeader}}
+  {{/if}}
+  {{>nav}}
+  {{>feed}}
+
+  {{#if background.path}}
+  <script>
+  document.body.style.background = "url({{background.path}})";
+  $('.photoCredit').hide()
+  </script>
+  {{/if}}
+</template>
+<!-- signin area -->
+<template name="signin">
+  <!-- only shows login form if you're not actually logged in -->
+  {{#unless currentUser}}
+  {{>login}}
+  {{else}}
+  {{>index}}
+  {{/unless}}
+</template>

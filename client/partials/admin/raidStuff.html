@@ -1,0 +1,124 @@
+<!-- raids -->
+
+<template name="loadRaid">
+  <div class="postCon">
+    <div class="actionBar">
+      <div class="title">Title</div><div class="diff"></div><div class="act">Actions</div>
+    </div>
+    {{#each raid}}
+    <div class="postObj">
+      <div class="title" onclick="adminLoc.set('editRaid'); currentRaid.set('{{_id}}')">
+        {{title}}
+      </div>
+      <div class="diff">
+      </div>
+      <div class="act">
+        <span class="fa fa-trash"  onclick="$('.deleteModal').show(); deleting.set('raid::{{_id}}')"></span><span class="fa fa-pencil" onclick="adminLoc.set('editRaid'); currentRaid.set('{{_id}}')"></span>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</template>
+
+<template name="newRaid">
+  <div class="postCon" style="border-top:5px solid #243136; padding-top:10px; padding-bottom:10px;">
+    <span class="label">Title</span>
+    <input class="postTitle" placeholder="title" id="title"/>
+    <span class="label">Add Bosses</span><span class="bossLabel">Dead</span>
+    <div id="bossCon">
+      <div class="bosses" id="bossCon0">
+        <input class="bossName" placeholder="Boss Name" id="abn0"/>
+        <table>
+          <th>&nbsp;N&nbsp;&nbsp;&nbsp;H&nbsp;&nbsp;&nbsp;M</th>
+          <tr>
+            <td>
+              <input type="checkbox" id="absN0"/>
+              <input type="checkbox" id="absH0"/>
+              <input type="checkbox" id="absM0"/>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <button onclick="Meteor.addBoss.addBoss()" style="margin-top:0; display:inline">Add New Boss</button>
+    <button onclick="Meteor.addBoss.remBoss()" class="remBoss" style="margin-top:0; float:right">Remove Boss</button>
+    <button id="raid" onclick="Meteor.addBoss.postBoss()">Post</button>
+  </div>
+</template>
+
+<template name="editRaid">
+  <div class="postCon" style="border-top:5px solid #243136; padding-top:10px; padding-bottom:10px">
+    {{#each editRaid}}
+    <span class="label">Title</span>
+    <input class="postTitle" placeholder="title" id="editBossTitle"/>
+    <span class="label">Add Bosses</span><span class="bossLabel">Dead</span>
+    <div id="editBossCon">
+
+    </div>
+    <button onclick="Meteor.editBoss.addBoss(count)" style="margin-top:0; display:inline">Add New Boss</button>
+    <button onclick="Meteor.editBoss.remBoss(count)" class="remBoss" style="margin-top:0; float:right">Remove Boss</button>
+    <button id="editRaid" onclick="Meteor.editBoss.postBoss('{{_id}}', count)">Update</button>
+
+    <hidden id="hiddenBN" style="display:none">{{bossName}}</hidden>
+    <hidden id="hiddenTitle" style="display:none">{{title}}</hidden>
+
+    <script>
+    //get the data and parse it
+     var title = $('#hiddenTitle').html().split('::,')
+
+     var bossName = $('#hiddenBN').html().split('::,')
+     var bossStatN = "{{bossStatN}}"
+     bossStatN = bossStatN.split(",")
+     var bossStatH = "{{bossStatH}}"
+     bossStatH = bossStatH.split(",")
+     var bossStatM = "{{bossStatM}}"
+     bossStatM = bossStatM.split(",")
+
+     var count = Number("{{length}}")
+     count += 1
+     console.log(count)
+     //stick the data into the tempalte
+     $('#editBossTitle').val(title)
+
+     //the main loop for populating the bosses
+     for(var i = 0; i < count; i++){
+       bossName[i] = bossName[i].replace("::", "")
+
+       var bossCon = '"editBossCon'+i+'"'
+       var thisAbn = '"editAbn'+i+'"'
+       var thisAbsN = '"editAbsN'+i+'"'
+       var thisAbsH = '"editAbsH'+i+'"'
+       var thisAbsM = '"editAbsM'+i+'"'
+
+       //for jquery selector
+       var insertAbn = "#editAbn"+i
+       var insertAbsN = "#editAbsN"+i
+       var insertAbsH = "#editAbsH"+i
+       var insertAbsM = "#editAbsM"+i
+
+       $('#editBossCon').append('<div class="bosses" id='+bossCon+'><input class="bossName" placeholder="Boss Name" id='+thisAbn+'/> \
+       <table> \
+       <th>&nbsp;N&nbsp;&nbsp;&nbsp;H&nbsp;&nbsp;&nbsp;M</th> \
+       <tr> \
+       <td> \
+       <input type="checkbox" id='+thisAbsN+'/> \
+       <input type="checkbox" id='+thisAbsH+'/> \
+       <input type="checkbox" id='+thisAbsM+'/> \
+       </td> \
+       </tr> \
+       </table></div>')
+       $(insertAbn).val(bossName[i])
+       if(!bossStatN[i].includes("ALIVE")){
+         $(insertAbsN).prop('checked', bossStatN[i]);
+       }
+       if(!bossStatH[i].includes("ALIVE")){
+         $(insertAbsH).prop('checked', bossStatH[i]);
+       }
+       if(!bossStatM[i].includes("ALIVE")){
+         $(insertAbsM).prop('checked', bossStatM[i]);
+       }
+     }
+    </script>
+    {{/each}}
+  </div>
+</template>

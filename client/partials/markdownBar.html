@@ -1,0 +1,58 @@
+<template name="markdownBar">
+  <div class="markdownEditor">
+    <div class="markdownBar">
+      <a class="fa fa-bold" style="background-position: 0px 0px;" alt="bold" title="Bold" onclick="addTagsToSelectedText($(this.parentElement.parentElement.parentElement).find('textarea')[0],'**','**');"></a>
+      <a class="fa fa-italic" style="background-position: -32px 0px;" alt="italic" title="Italic" onclick="addTagsToSelectedText($(this.parentElement.parentElement.parentElement).find('textarea')[0],'*','*');"></a>
+      <a class="fa fa-link" style="background-position: -64px 0px;" alt="link" title="Link" onclick="addTagsToSelectedText($(this.parentElement.parentElement.parentElement).find('textarea')[0],'[','](http;//)');"></a>
+      <a class="fa fa-quote-right" style="background-position: -96px 0px;" alt="quote" title="Quote" onclick="addTagsToEachSelectedTextLine($(this.parentElement.parentElement.parentElement).find('textarea')[0],'>','');"></a>
+      <a class="fa fa-code" style="background-position: -128px 0px;" alt="code" title="Code" onclick="addTagsToSelectedText($(this.parentElement.parentElement.parentElement).find('textarea')[0], '```', '');"></a>
+      <a class="fa fa-list-ul" style="background-position: -160px 0px;" alt="ul" title="Bullet List" onclick="addTagsToEachSelectedTextLine($(this.parentElement.parentElement.parentElement).find('textarea')[0],'* ','');"></a>
+      <a class="fa fa-list-ol" style="background-position: -192px 0px;" alt="ol" title="Number List" onclick="addTagsToEachSelectedTextLine($(this.parentElement.parentElement.parentElement).find('textarea')[0],'1. ','');"></a>
+      <a class="fa fa-header" style="background-position: -32px -16px;" alt="heading" title="Headings" onclick="addTagsToSelectedText($(this.parentElement.parentElement.parentElement).find('textarea')[0], '#', '');"></a>
+      <a class="fa fa-strikethrough" style="background-position: -160px -16px;" alt="spoiler" title="Strikethrough" onclick="addTagsToSelectedText($(this.parentElement.parentElement.parentElement).find('textarea')[0],'~~','~~');"></a>
+    </div>
+  </div>
+  <script>
+  function addTagsToSelectedText(n, t, i) {
+    var r = getSelectionArray(n), u;
+    n.value = r[0];
+    n.value += addTagsToText(r[1], t, i);
+    n.value += r[2];
+    u = n.value.length - i.length - r[2].length;
+    setSelectionRange(n, u, u)
+  }
+  function getSelectionArray(n) {
+    var t = [n.value, "", ""], i, r;
+    return n.selectionStart != undefined && (i = n.selectionStart,
+      r = n.selectionEnd,
+      t[0] = n.value.substring(0, i),
+      t[1] = n.value.substring(i, r),
+      t[2] = n.value.substring(r, n.value.length)),
+      t
+    }
+    function addTagsToText(n, t, i) {
+      return t + n + i
+    }
+    function setSelectionRange(n, t, i) {
+      if (n.setSelectionRange)
+      n.focus(),
+      n.setSelectionRange(t, i);
+      else if (n.createTextRange) {
+        var r = n.createTextRange();
+        r.collapse(!0);
+        r.moveEnd("character", i);
+        r.moveStart("character", t);
+        r.select()
+      }
+    }
+    function addTagsToEachSelectedTextLine(n, t, r) {
+      var u = getSelectionArray(n), e = u[1].split("\n"), f;
+      for (n.value = u[0],
+        i = 0; i < e.length; i++)
+        n.value += addTagsToText(e[i], t, r) + "\n";
+        n.value += u[2];
+        f = n.value.length - r.length - u[2].length;
+        setSelectionRange(n, f, f)
+      }
+  </script>
+</template>

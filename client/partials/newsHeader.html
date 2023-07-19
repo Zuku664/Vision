@@ -1,0 +1,29 @@
+<template name="newsHeader">
+  <div class="newsHeader">
+    {{#if equals currentPage "feed"}}
+    News
+    <div>
+      Sort By:
+      <select name="sort" onchange="Meteor.newsFilter.change()">
+        <option name="general" value="general" id="general">
+          General
+        </option>
+        <option name="bossKO" value="bossKO" id="bossKO">
+          Boss Kills
+        </option>
+      </select>
+    </div>
+    {{/if}}
+    {{#if equals currentPage "article"}}
+    {{#each posts}}
+    {{title}}
+    <div class="date">
+      {{date}}
+    </div>
+    {{/each}}
+    {{/if}}
+    {{#if equals currentPage "streams"}}
+    LIVE STREAMS
+    {{/if}}
+  </div>
+</template>
